@@ -25,13 +25,17 @@ def parse_args():
 parse_args()
 
 seconds = minutes * 60
+elapsed = 0
 print("Ctrl-C to pause...")
 while seconds > 0:
     try:
         if not seconds % step:
-            print("%02d:%02d" % (seconds // 60, seconds % 60))
+            print("%02d:%02d (elapsed: %02d:%02d)" % (
+                seconds // 60, seconds % 60,
+                elapsed // 60, elapsed % 60))
         time.sleep(1)
         seconds -= 1
+        elapsed += 1
     except KeyboardInterrupt:
         try:
             input("Ctrl-C to stop, Enter to continue...")
@@ -46,4 +50,5 @@ if invert:
     subprocess.run(('xcalib', '-a', '-i'), check=True)
 
 print("done!")
+
 
